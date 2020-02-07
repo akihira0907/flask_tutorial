@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        {% if name %}
+            <h1>A girl {{name}} invites you!!</h1>
+        {% else %}
+            <h1>An unnamed girl invites you!!</h1>
+        {% endif %}
+
+        <form action="/index" method="POST">
+            <input type="text" name="name" placeholder="Enter her name!">
+            <input type="submit" value="Submit">
+        </form>
+
+        <img src="/static/images/girl.jpg" alt="girl" height="700" width="1000">
+
+        {% for weapon in weapons %}
+            <p>{{weapon}}</p>
+        {% endfor %}
+    </body>
+</html>
