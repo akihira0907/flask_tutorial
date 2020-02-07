@@ -16,10 +16,11 @@
             <input type="submit" value="Submit">
         </form>
 
-        <img src="/static/images/girl.jpg" alt="girl" height="700" width="1000">
+        <img src="/static/images/girl.jpg" alt="girl" height="350" width="600">
 
-        {% for weapon in weapons %}
-            <p>{{weapon}}</p>
+        <h2>What's her name?</h2>
+        {% for oretsuba_name in oretsuba_names %}
+            <p>{{oretsuba_name}}</p>
         {% endfor %}
     </body>
 </html>
