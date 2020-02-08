@@ -41,6 +41,7 @@ def update():
     db_session.commit()
     return index()
 
+
 @app.route("/delete", methods=["post"])
 def delete():
     id_list = request.form.getlist("delete")
