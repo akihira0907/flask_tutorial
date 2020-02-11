@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+    </head>
+    <body>
+        <h1>LOGIN</h1>
+
+        {% if status == "user_notfound" %}
+            <p>User not found. Please register.</p>
+        {% elif status == "wrong_password" %}
+            <p>Wrong password!!</p>
+        {% elif status == "logout" %}
+            <p>Logout succeed.</p>
+        {% endif %}
+
+        <form action="/login" method="post">
+            <input type="text" name="user_name" placeholder="user name">
+            <input type="password" name="password" placeholder="password">
+            <input type="submit" value="LOGIN">
+        </form>
+
+        <a href="/newcommer">Sign Up</a>
+    </body>
+</html>

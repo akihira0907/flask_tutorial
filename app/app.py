@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request
-from models.models import PoemContent
+from flask import Flask, render_template, request, session, redirect, url_for
+from models.models import PoemContent, User
 from models.database import db_session
 from datetime import datetime
+import app.key as key
+from hashlib import sha256
+# from requests import session
 
 app = Flask(__name__)
 
@@ -50,6 +53,38 @@ def delete():
         db_session.delete(content)
     db_session.commit()
     return index()
+
+
+@app.route("/login", methods=["post"])
+def login():
+    user_name = request.form["user_name"]
+    user = User.query.filter_by(user_name=user_name).first()
+    if user:
+        password = request.form["password"]
+        hashed_pass = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
+        if user.hashed_pass == hashed_pass:
+            session["user_name"] = user_name
+            return redirect(url_for("index"))
+        else:
+            return redirect(url_for("top", status="wrong_password"))
+    else:
+        return redirect(url_for("top", status="user_notfound"))
+
+
+@app.route("/register", methods=["post"])
+def register():
+    user_name = request.form["user_name"]
+    user = User.query.filter_by(user_name=user_name).first()
+    if user:
+        return redirect(url_for("newcomer", status="exist_user"))
+    else:
+        password = request.form["password"]
+        hashed_pass = sha256((user_name + password + key.SALT).encode("utf-8")).hexdigest()
+        user = User(user_name, hashed_pass)
+        db_session.add(user)
+        db_session.commit()
+        session["user_name"] = user_name
+        return redirect(url_for("index"))
 
 
 if __name__ == "__main__":

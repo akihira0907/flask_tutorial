@@ -4,17 +4,15 @@
         <meta charset="UTF-8">
         <title>Title</title>
     </head>
+
+    <a href="/logout">Log out</a>
+
     <body>
         {% if name %}
             <h1>A girl {{name}} invites you!!</h1>
         {% else %}
             <h1>An unnamed girl invites you!!</h1>
         {% endif %}
-
-        <form action="/index" method="POST">
-            <input type="text" name="name" placeholder="Enter her name!">
-            <input type="submit" value="Submit">
-        </form>
 
         <img src="/static/images/girl.jpg" alt="girl" height="350" width="600">
 

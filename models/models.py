@@ -17,3 +17,17 @@ class PoemContent(Base):
 
     def __repr__(self):
         return '<Title: %r>' % self.title
+
+
+class User(Base):
+    __tablename__ = 'users'
+    id = Column(Integer, primary_key=True)
+    user_name = Column(String(64), unique=True)
+    hashed_pass = Column(String(64))
+
+    def __init__(self, user_name=None, hashed_pass=None):
+        self.user_name = user_name
+        self.hashed_pass = hashed_pass
+
+    def __repr__(self):
+        return '<Name: %r>' % self.user_name
