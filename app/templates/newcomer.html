@@ -6,10 +6,13 @@
     </head>
     <body>
         <h1>SIGN UP</h1>
+
         <a href="/top">"Return to Login Menu"</a>
-        {% if status == "exit_user" %}
+
+        {% if status == "exist_user" %}
             <p>This user already has been registered.</p>
         {% endif %}
+
         <form action="/register" method="post">
             <input type="text" name="user_name" placeholder="user name">
             <input type="password" name="password" placeholder="password">

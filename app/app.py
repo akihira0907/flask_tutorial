@@ -7,20 +7,12 @@ from hashlib import sha256
 # from requests import session
 
 app = Flask(__name__)
-
+app.secret_key = key.SECRET_KEY
 
 @app.route("/")
 @app.route("/index")
 def index():
     name = request.args.get("name")
-    # oretsuba_names = ["hiyoko", "asuka", "naru", "miyako"]
-    all_poem = PoemContent.query.all()
-    return render_template("index.html", name=name, all_poem=all_poem)
-
-
-@app.route("/index", methods=["post"])
-def post():
-    name = request.form["name"]
     # oretsuba_names = ["hiyoko", "asuka", "naru", "miyako"]
     all_poem = PoemContent.query.all()
     return render_template("index.html", name=name, all_poem=all_poem)
@@ -55,6 +47,12 @@ def delete():
     return index()
 
 
+@app.route("/top")
+def top():
+    status = request.args.get("status")
+    return render_template("top.html", status=status)
+
+
 @app.route("/login", methods=["post"])
 def login():
     user_name = request.form["user_name"]
@@ -71,6 +69,12 @@ def login():
         return redirect(url_for("top", status="user_notfound"))
 
 
+@app.route("/newcomer")
+def newcomer():
+    status = request.args.get("status")
+    return render_template("newcomer.html", status=status)
+
+
 @app.route("/register", methods=["post"])
 def register():
     user_name = request.form["user_name"]
@@ -85,6 +89,12 @@ def register():
         db_session.commit()
         session["user_name"] = user_name
         return redirect(url_for("index"))
+
+
+@app.route("/logout")
+def logout():
+    session.pop("user_name", None)
+    return redirect(url_for("top", status="logout"))
 
 
 if __name__ == "__main__":

@@ -14,7 +14,10 @@
             <h1>An unnamed girl invites you!!</h1>
         {% endif %}
 
+        <!--
         <img src="/static/images/girl.jpg" alt="girl" height="350" width="600">
+        -->
+        <img src="/static/images/aws.png" alt="girl" height="350" width="600">
 
         <h2>Poems not concerned with her</h2>
 
@@ -33,6 +36,7 @@
         <form action="/delete" method="post" id="delete">
             <input type="submit" value="Delete selected all poem">
         </form>
+
         {% for poem in all_poem %}
             <div>
                 <input type="radio" name="update" form="update" value={{poem.id}}>
