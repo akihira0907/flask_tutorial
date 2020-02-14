@@ -4,18 +4,22 @@ from models.database import db_session
 from datetime import datetime
 import app.key as key
 from hashlib import sha256
+
 # from requests import session
 
 app = Flask(__name__)
 app.secret_key = key.SECRET_KEY
 
+
 @app.route("/")
 @app.route("/index")
 def index():
-    name = request.args.get("name")
-    # oretsuba_names = ["hiyoko", "asuka", "naru", "miyako"]
-    all_poem = PoemContent.query.all()
-    return render_template("index.html", name=name, all_poem=all_poem)
+    if "user_name" in session:
+        name = session["user_name"]
+        all_poem = PoemContent.query.all()
+        return render_template("index.html", name=name, all_poem=all_poem)
+    else:
+        return redirect(url_for("top", status="logout"))
 
 
 @app.route("/add", methods=["post"])
